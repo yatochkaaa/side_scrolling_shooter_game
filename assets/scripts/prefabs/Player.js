@@ -6,6 +6,22 @@ class Player extends Enemy {
   init() {
     super.init()
     this.velocity = 500;
+
+    this.fires = new Fires(this.scene);
+    this.createTimer();
+  }
+
+  createTimer() {
+    this.timer = this.scene.time.addEvent({
+      delay: 500,
+      callback: this.fire,
+      callbackScope: this,
+      loop: true
+    });
+  }
+
+  fire() {
+    this.fires.createFire(this)
   }
 
   move() {
