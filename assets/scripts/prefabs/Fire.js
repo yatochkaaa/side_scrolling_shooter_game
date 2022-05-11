@@ -19,10 +19,28 @@ class Fire extends Phaser.GameObjects.Sprite {
   init(data) {
     this.scene.add.existing(this);
     this.velocity = data.velocity;
+    this.scene.events.on('update', this.update, this);
   }
 
-  reset() {
-    
+  reset(source) {
+    this.x = source.x + source.width / 2;
+    this.y = source.y;
+    this.setAlive(true);
+  }
+
+  update() {
+    if (this.active && (this.x > this.width + config.width || this.x < -this.width)) {
+      this.setAlive(false);
+    }
+  }
+
+  setAlive(status) {
+    // активировать/деактевировать физическое тело
+    this.body.enable = status;
+    // показать/скрыть текстуру
+    this.setVisible(status);
+    // активировать/деактивировать объект
+    this.setActive(status);
   }
 
   move() {
