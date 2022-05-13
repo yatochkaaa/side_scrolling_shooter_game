@@ -31,6 +31,10 @@ class MovableObject extends Phaser.GameObjects.Sprite {
     this.setVisible(status);
     // активировать/деактивировать объект
     this.setActive(status);
+
+    if (this.timer) {
+      this.timer.paused = !status;
+    }
   }
 
   move() {
