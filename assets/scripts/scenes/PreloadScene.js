@@ -11,6 +11,6 @@ class PreloadScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start('Start')
+    this.scene.start('Start');
   }
 }
