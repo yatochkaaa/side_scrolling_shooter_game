@@ -15,8 +15,38 @@ class Enemy extends MovableObject {
       y: data.y,
       texture: 'enemy',
       frame: data.frame,
-      velocity: -500
+      velocity: -250,
+      bullet: {
+        delay: 1000,
+        texture: 'bullet',
+        velocity: -500
+      },
+      origin: {
+        x: 0,
+        y: 0.5
+      }
     });
+  }
+
+  init(data) {
+    super.init(data);
+    this.setOrigin(data.origin.x, data.origin.y)
+    this.fires = new Fires(this.scene);
+    this.createTimer(data);
+    this.bullet = data.bullet;
+  }
+
+  createTimer(data) {
+    this.timer = this.scene.time.addEvent({
+      delay: data.bullet.delay,
+      callback: this.fire,
+      callbackScope: this,
+      loop: true
+    });
+  }
+
+  fire() {
+    this.fires.createFire(this)
   }
 
   reset() {

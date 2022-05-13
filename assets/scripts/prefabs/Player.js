@@ -6,28 +6,17 @@ class Player extends Enemy {
       y: config.height / 2,
       texture: 'dragon',
       frame: 'dragon1',
-      velocity: 500
+      velocity: 500,
+      bullet: {
+        delay: 500,
+        texture: 'fire',
+        velocity: 750,
+      },
+      origin: {
+        x: 1,
+        y: 0.5
+      }
     });
-  }
-
-  init(data) {
-    super.init(data);
-
-    this.fires = new Fires(this.scene);
-    this.createTimer();
-  }
-
-  createTimer() {
-    this.timer = this.scene.time.addEvent({
-      delay: 500,
-      callback: this.fire,
-      callbackScope: this,
-      loop: true
-    });
-  }
-
-  fire() {
-    this.fires.createFire(this)
   }
 
   move() {
