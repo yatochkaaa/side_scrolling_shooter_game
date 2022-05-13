@@ -6,7 +6,7 @@ class StartScene extends Phaser.Scene {
   create(data) {
     this.createBackground();
 
-    if (data) {
+    if (data.score !== undefined) {
       this.createStats(data);
     }
 
