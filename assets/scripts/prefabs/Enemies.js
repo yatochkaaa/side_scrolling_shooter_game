@@ -47,7 +47,7 @@ class Enemies extends Phaser.Physics.Arcade.Group {
 
   createTimer() {
     this.timer = this.scene.time.addEvent({
-      delay: 100,
+      delay: 1000,
       callback: this.createEnemy,
       callbackScope: this,
       repeat: this.waves[this.wave] - 1
