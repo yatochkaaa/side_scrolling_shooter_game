@@ -9,7 +9,7 @@ class MovableObject extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
     this.body.enable = true;
     this.velocity = data.velocity;
-    this.lifes = 0;
+    this.lifes = data.lifes;
     this.scene.events.on('update', this.update, this);
   }
 

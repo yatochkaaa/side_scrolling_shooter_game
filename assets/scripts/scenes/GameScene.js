@@ -43,25 +43,30 @@ class GameScene extends Phaser.Scene {
     const enemy = [source, target].find(item => item.texture.key === 'enemy');
     const player = [source, target].find(item => item.texture.key === 'dragon');
     const fire = [source, target].find(item => item.texture.key === 'fire');
+    const bullet = [source, target].find(item => item.texture.key === 'bullet');
 
-    if (enemy && enemy.lifes) {
-      --enemy.lifes;
-    } else if (enemy) {
-      ++this.score;
-      this.scoreText.setText('Score: ' + this.score);
-      Boom.generate(this, enemy.x, enemy.y);
-      this.sounds.boom.play();
-      enemy.setAlive(false);
+    if (player) {
+      if (player.lifes) {
+        --player.lifes;
+      } else {
+        player.setAlive(false);
+      }
     }
 
-    if (player && this.player.lifes) {
-      --this.player.lifes;
-    } else if (player) {
-      player.setAlive(false);
+    if (enemy) {
+      if (enemy.lifes) {
+        --enemy.lifes
+      } else {
+        ++this.score;
+        this.scoreText.setText('Score: ' + this.score);
+        Boom.generate(this, enemy.x, enemy.y);
+        this.sounds.boom.play();
+        enemy.setAlive(false);
+      }
     }
 
-    if (fire) {
-      fire.setAlive(false);
+    if (fire || bullet) {
+      (fire || bullet).setAlive(false);
     }
   }
 

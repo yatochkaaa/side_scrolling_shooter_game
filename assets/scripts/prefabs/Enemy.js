@@ -43,7 +43,6 @@ class Enemy extends MovableObject {
     this.fires = data.fires || new Fires(this.scene);
     this.createTimer(data);
     this.bullet = data.bullet;
-    this.lifes = data.lifes;
   }
 
   createTimer(data) {
@@ -56,7 +55,7 @@ class Enemy extends MovableObject {
   }
 
   fire() {
-    this.fires.createFire(this)
+    this.fires.createFire(this);
   }
 
   reset() {

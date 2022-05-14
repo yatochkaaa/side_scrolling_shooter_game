@@ -7,6 +7,7 @@ class Player extends Enemy {
       texture: 'dragon',
       frame: 'dragon1',
       velocity: 500,
+      lifes: 2,
       bullet: {
         delay: 500,
         texture: 'fire',
@@ -14,8 +15,6 @@ class Player extends Enemy {
       },
       origin: { x: 1, y: 0.5 },
     });
-
-    this.lifes = 2;
 
     const frames = this.scene.anims.generateFrameNames('dragon', {
       prefix: 'dragon',
