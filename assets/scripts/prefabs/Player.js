@@ -34,15 +34,15 @@ class Player extends Enemy {
   move() {
     this.body.setVelocity(0);
 
-    if (this.scene.cursors.left.isDown) {
+    if (this.scene.cursors.left.isDown && this.x >= this.width) {
       this.body.setVelocityX(-this.velocity);
-    } else if (this.scene.cursors.right.isDown) {
+    } else if (this.scene.cursors.right.isDown && this.x <= config.width) {
       this.body.setVelocityX(this.velocity);
     }
 
-    if (this.scene.cursors.up.isDown) {
+    if (this.scene.cursors.up.isDown && this.y >= this.height / 2) {
       this.body.setVelocityY(-this.velocity);
-    } else if (this.scene.cursors.down.isDown) {
+    } else if (this.scene.cursors.down.isDown && this.y <= config.height - this.height / 2) {
       this.body.setVelocityY(this.velocity);
     }
   }

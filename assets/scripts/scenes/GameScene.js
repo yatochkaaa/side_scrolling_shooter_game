@@ -13,9 +13,9 @@ class GameScene extends Phaser.Scene {
     if (!this.sounds) {
       this.createSounds();
     }
-    this.createText();
     this.player = new Player(this);
     this.enemies = new Enemies(this);
+    this.createText();
     this.createCompleteEvents();
     this.addOverlap();
   }
@@ -25,12 +25,12 @@ class GameScene extends Phaser.Scene {
       theme: this.sound.add('theme', { volume: 0.3, loop: true }),
       boom: this.sound.add('boom', { volume: 0.1 })
     }
-
     this.sounds.theme.play();
   }
 
   createText() {
-    this.scoreText = this.add.text(50, 50, `Score: ${this.score}`, { font: '40px CurseCasual' });
+    this.scoreText = this.add.text(50, 60, `Score: ${this.score}`, { font: '40px CurseCasual' });
+    this.waveText = this.add.text(50, 25, `Wave: ${this.enemies.wave}`, { font: '40px CurseCasual' });
   }
 
   addOverlap() {
@@ -55,7 +55,12 @@ class GameScene extends Phaser.Scene {
 
   createCompleteEvents() {
     this.player.once('killed', this.onComplete, this);
+    this.events.on('wave-complete', this.onWaveComplete, this);
     this.events.once('enemies-killed', this.onComplete, this);
+  }
+
+  onWaveComplete() {
+    this.waveText.setText(`Wave: ${this.enemies.wave}`);
   }
 
   onComplete() {

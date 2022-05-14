@@ -3,7 +3,14 @@ class Enemies extends Phaser.Physics.Arcade.Group {
     super(scene.physics.world, scene);
     this.scene = scene;
     this.fires = new Fires(this.scene);
-    this.count = 10;
+    this.wave = 1;
+    this.waves = {
+      "1": 10,
+      "2": 15,
+      "3": 20,
+      "4": 25,
+      "5": 30
+    }
     this.countKilled = 0;
     this.createTimer();
   }
@@ -11,8 +18,15 @@ class Enemies extends Phaser.Physics.Arcade.Group {
   onEnemyKilled() {
     ++this.countKilled;
 
-    if (this.countKilled >= this.count) {
+    if (this.wave > Object.keys(this.waves).length) {
       this.scene.events.emit('enemies-killed');
+    }
+
+    if (this.countKilled >= this.waves[this.wave]) {
+      this.countKilled = 0;
+      ++this.wave;
+      this.scene.events.emit('wave-complete');
+      this.createTimer();
     }
   }
 
@@ -35,7 +49,7 @@ class Enemies extends Phaser.Physics.Arcade.Group {
       delay: 1000,
       callback: this.createEnemy,
       callbackScope: this,
-      repeat: this.count - 1
+      repeat: this.waves[this.wave] - 1
     });
   }
 }
