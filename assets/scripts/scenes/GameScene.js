@@ -41,16 +41,31 @@ class GameScene extends Phaser.Scene {
 
   onOverlap(source, target) {
     const enemy = [source, target].find(item => item.texture.key === 'enemy');
+    const player = [source, target].find(item => item.texture.key === 'dragon');
+    const fire = [source, target].find(item => item.texture.key === 'fire');
 
-    if (enemy) {
+    // // console.log('source: ', source)
+    // // console.log('target: ', target)
+
+    if (enemy && enemy.lifes) {
+      --enemy.lifes;
+    } else if (enemy) {
       ++this.score;
       this.scoreText.setText('Score: ' + this.score);
       Boom.generate(this, enemy.x, enemy.y);
       this.sounds.boom.play();
+      enemy.setAlive(false);
     }
 
-    source.setAlive(false);
-    target.setAlive(false);
+    // if (player && this.player.lifes) {
+    //   --this.player.lifes;
+    // } else if (player) {
+    //   player.setAlive(false);
+    // }
+
+    if (fire) {
+      fire.setAlive(false);
+    }
   }
 
   createCompleteEvents() {

@@ -35,6 +35,7 @@ class Enemies extends Phaser.Physics.Arcade.Group {
 
     if (!enemy) {
       enemy = Enemy.generate(this.scene, this.fires);
+      console.log(enemy);
       enemy.on('killed', this.onEnemyKilled, this);
       this.add(enemy);
     } else {

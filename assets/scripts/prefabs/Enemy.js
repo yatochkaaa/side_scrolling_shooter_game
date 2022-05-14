@@ -2,8 +2,15 @@ class Enemy extends MovableObject {
   static generateAttributes() {
     const x = config.width + 200;
     const y = Phaser.Math.Between(100, config.height - 100);
+    const id = Phaser.Math.Between(1, 4);
+    const lifes = {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 2
+    };
 
-    return {x, y, frame: `enemy${Phaser.Math.Between(1, 4)}`};
+    return {x, y, frame: `enemy${id}`, lifes: lifes[id]};
   }
 
   static generate(scene, fires) {
@@ -17,6 +24,7 @@ class Enemy extends MovableObject {
       texture: 'enemy',
       frame: data.frame,
       velocity: -250,
+      lifes: data.lifes,
       bullet: {
         delay: 1000,
         texture: 'bullet',
@@ -35,6 +43,7 @@ class Enemy extends MovableObject {
     this.fires = data.fires || new Fires(this.scene);
     this.createTimer(data);
     this.bullet = data.bullet;
+    this.lifes = data.lifes;
   }
 
   createTimer(data) {
@@ -54,6 +63,7 @@ class Enemy extends MovableObject {
     const data = Enemy.generateAttributes();
     super.reset(data.x, data.y);
     this.setFrame(data.frame);
+    this.lifes = data.lifes;
   }
 
   isDead() {
