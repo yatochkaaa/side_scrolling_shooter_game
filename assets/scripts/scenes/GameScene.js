@@ -44,9 +44,6 @@ class GameScene extends Phaser.Scene {
     const player = [source, target].find(item => item.texture.key === 'dragon');
     const fire = [source, target].find(item => item.texture.key === 'fire');
 
-    // // console.log('source: ', source)
-    // // console.log('target: ', target)
-
     if (enemy && enemy.lifes) {
       --enemy.lifes;
     } else if (enemy) {
@@ -57,11 +54,11 @@ class GameScene extends Phaser.Scene {
       enemy.setAlive(false);
     }
 
-    // if (player && this.player.lifes) {
-    //   --this.player.lifes;
-    // } else if (player) {
-    //   player.setAlive(false);
-    // }
+    if (player && this.player.lifes) {
+      --this.player.lifes;
+    } else if (player) {
+      player.setAlive(false);
+    }
 
     if (fire) {
       fire.setAlive(false);
@@ -70,7 +67,7 @@ class GameScene extends Phaser.Scene {
 
   createCompleteEvents() {
     this.player.once('killed', this.onComplete, this);
-    this.events.on('wave-complete', this.onWaveComplete, this);
+    this.events.on('show-next-wave', this.onWaveComplete, this);
     this.events.once('enemies-killed', this.onComplete, this);
   }
 
