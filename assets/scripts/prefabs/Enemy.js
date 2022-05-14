@@ -9,8 +9,20 @@ class Enemy extends MovableObject {
       "3": 1,
       "4": 2
     };
+    const points = {
+      "1": 1,
+      "2": 1,
+      "3": 2,
+      "4": 3
+    }
 
-    return {x, y, frame: `enemy${id}`, lifes: lifes[id]};
+    return {
+      x,
+      y,
+      frame: `enemy${id}`,
+      lifes: lifes[id],
+      points: points[id]
+    };
   }
 
   static generate(scene, fires) {
@@ -25,6 +37,7 @@ class Enemy extends MovableObject {
       frame: data.frame,
       velocity: -250,
       lifes: data.lifes,
+      points: data.points,
       bullet: {
         delay: 1000,
         texture: 'bullet',
@@ -43,6 +56,7 @@ class Enemy extends MovableObject {
     this.fires = data.fires || new Fires(this.scene);
     this.createTimer(data);
     this.bullet = data.bullet;
+    this.points = data.points;
   }
 
   createTimer(data) {
@@ -63,6 +77,7 @@ class Enemy extends MovableObject {
     super.reset(data.x, data.y);
     this.setFrame(data.frame);
     this.lifes = data.lifes;
+    this.points = data.points;
   }
 
   isDead() {

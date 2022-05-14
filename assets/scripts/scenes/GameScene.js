@@ -57,7 +57,7 @@ class GameScene extends Phaser.Scene {
       if (enemy.lifes) {
         --enemy.lifes
       } else {
-        ++this.score;
+        this.score += enemy.points;
         this.scoreText.setText('Score: ' + this.score);
         Boom.generate(this, enemy.x, enemy.y);
         this.sounds.boom.play();
